@@ -1,0 +1,53 @@
+.menu {
+  margin-top: 40px;
+}
+
+.item {
+  display: flex;
+  text-decoration: none;
+  color: #000;
+  opacity: 0.45;
+  /* transition: opacity 0.3s; */
+}
+
+.item:hover,
+.item.current {
+  opacity: 1;
+}
+
+.item.active > .itemContent {
+  opacity: 1;
+}
+
+.itemIcon {
+  display: block;
+  flex-shrink: 0;
+  width: 55px;
+  height: 55px;
+  padding: 13px;
+}
+
+.itemIcon > img {
+  display: block;
+  width: 100%;
+}
+
+.itemContent {
+  flex-grow: 1;
+  height: 55px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.itemContent > span {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 150px;
+  padding-right: 30px;
+  text-align: center;
+}

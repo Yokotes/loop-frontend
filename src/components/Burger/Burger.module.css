@@ -1,7 +1,7 @@
 .burger {
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 55px;
   background: none;
   border: none;
   position: relative;
@@ -20,14 +20,14 @@
 .icon {
   display: block;
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   position: relative;
 }
 
 .content {
   flex-grow: 1;
-  height: 50px;
+  height: 55px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@
 
 .content > span {
   font-family: "Roboto Condensed", sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
   flex-shrink: 0;
   width: 150px;
@@ -68,19 +68,19 @@
 }
 
 .burger:hover > .icon > span:first-child {
-  transform: translateY(-5px) translateX(7.5px) rotateZ(45deg) scaleX(0.5);
+  transform: translateY(-5px) translateX(7.5px) rotateZ(46deg) scaleX(0.5);
 }
 
 .burger:hover > .icon > span:last-child {
-  transform: translateY(5px) translateX(7.5px) rotateZ(-45deg) scaleX(0.5);
+  transform: translateY(5px) translateX(7.5px) rotateZ(-46deg) scaleX(0.5);
 }
 
 .burger.active > .icon > span:first-child {
-  transform: translateY(-5px) translateX(-7.5px) rotateZ(-45deg) scaleX(0.5);
+  transform: translateY(-5px) translateX(-7.5px) rotateZ(-46deg) scaleX(0.5);
 }
 
 .burger.active > .icon > span:last-child {
-  transform: translateY(5px) translateX(-7.5px) rotateZ(45deg) scaleX(0.5);
+  transform: translateY(5px) translateX(-7.5px) rotateZ(46deg) scaleX(0.5);
 }
 
 .burger.active > .content {

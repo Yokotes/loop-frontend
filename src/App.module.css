@@ -1,4 +1,11 @@
 #app {
-  display: flex;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  border-top: 1px solid #e4e5e7;
+  flex-grow: 1;
 }
