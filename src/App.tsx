@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styles from './App.module.css';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
-import Dashboard from './containers/Dashboard/Dashboard';
+import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
 
 function App() {
   return (
@@ -13,11 +13,16 @@ function App() {
           <div className={styles.content}>
             <Sidebar />
 
-            <Switch>
-              <Route path="dashboard" exact>
-                <Dashboard />
-              </Route>
-            </Switch>
+            <div className={styles.pageContent}>
+              <Switch>
+                <Route path="/" exact>
+                  <ProjectsPage />
+                </Route>
+                <Route path="/projects">
+                  <ProjectsPage />
+                </Route>
+              </Switch>
+            </div>
           </div>
         </div>
       </Router>

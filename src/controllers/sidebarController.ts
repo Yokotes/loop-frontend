@@ -12,9 +12,16 @@ const setCurrentMenuItem = (id: number) => (dispatch: any) => {
 
 const loadCurrentMenuItem = () => (dispatch: any, getState: any) => {
   const path = window.location.pathname;
-  const state: RootState = getState();
-  const currentItem = state.menu.items.filter((item) => item.path === path)[0]
-  const itemId = currentItem ? currentItem.id : 0;
+  let itemId: number;
+
+  if (path !== '/profile') {
+    const state: RootState = getState();
+    const currentItem = state.menu.items.filter((item) => item.path === path)[0]
+    itemId = currentItem ? currentItem.id : 0;
+  }
+  else {
+    itemId = -1;
+  }
 
   dispatch(setCurrentItem(itemId));
 }

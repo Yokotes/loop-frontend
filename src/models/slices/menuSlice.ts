@@ -31,7 +31,9 @@ const menuSlice = createSlice({
     setCurrentItem: (state, action) => {
       state.items.map((item) => item.isCurrent = false)
       const item = state.items.filter((item) => item.id === action.payload)[0]
-      item.isCurrent = true;
+      if (item) {
+        item.isCurrent = true;
+      }
     }
   }
 });
