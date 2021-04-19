@@ -1,0 +1,48 @@
+.task {
+  background-color: #fff;
+  border: 1px solid #e4e5e7;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.status {
+  height: 25px;
+  opacity: 0.5;
+  margin-right: 10px;
+}
+
+.status > img {
+  height: 100%;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875rem;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.btn {
+  background: none;
+  border: none;
+  height: 16px;
+  opacity: 0.5;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.btn > img {
+  height: 100%;
+}

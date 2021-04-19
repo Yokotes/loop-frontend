@@ -4,6 +4,7 @@ import styles from './App.module.css';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
+import TasksPage from './containers/TasksPage/TasksPage';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
                 </Route>
                 <Route path="/projects">
                   <ProjectsPage />
+                </Route>
+                <Route path="/tasks">
+                  <TasksPage />
                 </Route>
               </Switch>
             </div>
