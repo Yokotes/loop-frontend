@@ -1,7 +1,7 @@
 .item {
   background-color: #fff;
   border: 1px solid #e4e5e7;
-  width: 250px;
+  flex: 0 1 250px;
   height: 220px;
   display: flex;
   flex-direction: column;

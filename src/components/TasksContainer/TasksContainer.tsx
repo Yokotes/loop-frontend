@@ -24,7 +24,7 @@ const TasksContainer = ({ id, projectTitle, tasks, isShowed }: TasksContainerPro
           className={styles.showBtn}
           onClick={() => dispatch(showTasks(id))}
         >
-          <img src={`img/buttons/${isShowed ? 'hide' : 'show'}.svg`} alt={isShowed ? 'Hide': 'Show'}/>
+          <img src={`img/buttons/show.svg`} alt={isShowed ? 'Hide': 'Show'}/>
         </button>
       </div>
       <div className={styles.body}>

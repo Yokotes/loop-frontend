@@ -4,6 +4,11 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task:last-child {
+  margin-bottom: 0;
 }
 
 .content {
@@ -12,13 +17,13 @@
 }
 
 .status {
-  height: 25px;
+  width: 25px;
   opacity: 0.5;
   margin-right: 10px;
 }
 
 .status > img {
-  height: 100%;
+  width: 100%;
 }
 
 .title {

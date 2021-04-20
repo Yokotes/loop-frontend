@@ -17,6 +17,24 @@ const projectsListSlice = createSlice({
         ],
         isShowed: false,
       },
+      {
+        id: '1',
+        title: 'Test project',
+        img: 'img/default_project_img.jpg',
+        tasks: [
+          {
+            id: '0',
+            title: 'Test task',
+            status: 2
+          },
+          {
+            id: '1',
+            title: 'Awesome test task',
+            status: 3
+          }
+        ],
+        isShowed: false,
+      }
     ],
   },
   reducers: {
