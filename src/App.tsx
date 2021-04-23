@@ -5,12 +5,16 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
 import TasksPage from './containers/TasksPage/TasksPage';
+import AddTaskModal from './modals/AddTaskModal/AddTaskModal';
 
 function App() {
   return (
       <Router>
         <div id={styles.app} data-testid="app-test">
+          {/* Header */}
           <Header />
+
+          {/* Sidebar & Content */}
           <div className={styles.content}>
             <Sidebar />
 
@@ -28,6 +32,9 @@ function App() {
               </Switch>
             </div>
           </div>
+        
+          {/* Modals */}
+          <AddTaskModal />
         </div>
       </Router>
   );
