@@ -35,7 +35,7 @@ const projectsListSlice = createSlice({
         ],
         isShowed: false,
       }
-    ],
+    ]
   },
   reducers: {
     addItem: (state, action) => {

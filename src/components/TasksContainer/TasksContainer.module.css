@@ -29,15 +29,25 @@
   font-weight: normal;
 }
 
-.showBtn {
+.btns {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
   background: none;
   border: none;
   width: 20px;
+  margin-right: 10px;
   transform-origin: center center;
   transition: transform 0.3s;
 }
 
-.showBtn > img {
+.btn:last-child {
+  margin-right: 0;
+}
+
+.btn > img {
   display: block;
   width: 100%;
 }

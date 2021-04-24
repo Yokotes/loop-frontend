@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PrimaryBtn from '../../components/PrimaryBtn/PrimaryBtn';
 import PrimaryTextInput from '../../components/PrimaryTextInput/PrimaryTextInput';
-import { hideAddTaskModal } from '../../controllers/modalsController';
+import { hideAddTaskModal, setTaskTitleValue } from '../../controllers/modalsController';
 import { Modals } from '../../models/slices/modalsSlice';
 import { RootState } from '../../models/store';
 import Modal from '../Modal/Modal';
@@ -23,7 +23,12 @@ const AddTaskModal = () => {
         <div className={styles.bodyContent}>
           <PrimaryTextInput 
             label="Title:"
-            htmlId="taskTitle"  
+            htmlId="taskTitle"
+            onChange={
+              (e: React.ChangeEvent<HTMLInputElement>) => (
+                dispatch(setTaskTitleValue(e.currentTarget.value))
+              )
+            }
           />
           <PrimaryBtn className={styles.btn}>
             Add task

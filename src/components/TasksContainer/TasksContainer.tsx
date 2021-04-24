@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { showAddTaskModal } from '../../controllers/modalsController';
 import { deleteTask, showTasks } from '../../controllers/tasksController';
 import Task, { TaskProps } from '../Task/Task';
 import styles from './TasksContainer.module.css';
@@ -20,12 +21,22 @@ const TasksContainer = ({ id, projectTitle, tasks, isShowed }: TasksContainerPro
         <h3 className={styles.projectTitle}>
           { projectTitle }
         </h3>
-        <button 
-          className={styles.showBtn}
-          onClick={() => dispatch(showTasks(id))}
-        >
-          <img src={`img/buttons/show.svg`} alt={isShowed ? 'Hide': 'Show'}/>
-        </button>
+        <div className={styles.btns}>
+          <button
+            className={styles.btn}
+            onClick={() => dispatch(showAddTaskModal(id))}
+            title="Add task to project"
+          >
+            <img src="img/buttons/add.svg" alt="Add new task"/>
+          </button>
+          <button 
+            className={`${styles.btn} ${styles.showBtn}`}
+            onClick={() => dispatch(showTasks(id))}
+            title={isShowed ? 'Hide tasks': 'Show tasks'}
+          >
+            <img src={`img/buttons/show.svg`} alt={isShowed ? 'Hide': 'Show'}/>
+          </button>
+        </div>
       </div>
       <div className={styles.body}>
         <div className={styles.tasks}>

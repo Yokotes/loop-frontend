@@ -16,7 +16,6 @@ const Modal = ({ title, children, hide, isShow }: ModalProps) => {
   return (
     <div 
       className={`${styles.bg} ${isShow ? styles.show : styles.hide}`}
-      onClick={hide}
     >
       <div className={styles.modal}>
         <div className={styles.header}>

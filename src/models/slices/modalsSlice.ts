@@ -10,11 +10,27 @@ const modalsSlice = createSlice({
     modals: [
       {
         name: 'addTask',
-        isShow: true,
+        isShow: false,
+        data: {
+          taskTitle: '',
+          currentProjectId: '',
+        }
       },
     ],
   },
   reducers: {
+    // Add task modal
+    setCurrentProject: (state, action) => {
+      state.modals[Modals.ADD_TASK].data.currentProjectId = action.payload;
+    },
+    dropCurrentProject: (state) => {
+      state.modals[Modals.ADD_TASK].data.currentProjectId = '';
+    },
+    setTaskTitle: (state, action) => {
+      state.modals[Modals.ADD_TASK].data.taskTitle = action.payload;
+    },
+
+    // General
     showModal: (state, action) => {
       const modal = state.modals[action.payload];
       modal.isShow = true;
@@ -29,6 +45,12 @@ const modalsSlice = createSlice({
 
 export { Modals }
 
-export const { showModal, hideModal } = modalsSlice.actions
+export const { 
+  showModal, 
+  hideModal,
+  setCurrentProject,
+  dropCurrentProject,
+  setTaskTitle,
+} = modalsSlice.actions
 
 export default modalsSlice.reducer;
