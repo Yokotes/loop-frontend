@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Project.module.css';
 
 type ProjectProps = {
@@ -10,9 +11,12 @@ type ProjectProps = {
 const Project = ({ id, title, img }: ProjectProps) => {
   return (
     <div className={styles.item}>
-      <div className={styles.imgContainer}>
+      <Link 
+        className={styles.imgContainer}
+        to="/tasks"
+      >
         <img src={img} alt={title + " image"} className={styles.img}/>
-      </div>
+      </Link>
       <div className={styles.content}>
         <h3 className={styles.title}>
           {title}

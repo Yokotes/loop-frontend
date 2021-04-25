@@ -8,32 +8,11 @@ const projectsListSlice = createSlice({
         id: '0',
         title: 'My awesome project',
         img: 'img/default_project_img.jpg',
-        tasks: [
-          {
-            id: '0',
-            title: 'Do awesome stuff',
-            status: 1
-          }
-        ],
-        isShowed: false,
       },
       {
         id: '1',
         title: 'Test project',
         img: 'img/default_project_img.jpg',
-        tasks: [
-          {
-            id: '0',
-            title: 'Test task',
-            status: 2
-          },
-          {
-            id: '1',
-            title: 'Awesome test task',
-            status: 3
-          }
-        ],
-        isShowed: false,
       }
     ]
   },
@@ -44,28 +23,12 @@ const projectsListSlice = createSlice({
     removeItem: (state, action) => {
       state.projects = state.projects.filter((item) => item.id !== action.payload);
     },
-    addTask: (state, action) => {
-      const project = state.projects.filter((item) => item.id === action.payload.projectId)[0];
-      project.tasks.push(action.payload.taskData)
-    },
-    removeTask: (state, action) => {
-      const project = state.projects.filter((item) => item.id === action.payload.projectId)[0];
-      const task = project.tasks.filter((item) => item.id === action.payload.taskId)[0];
-      task.status = 4;
-    },
-    toggleIsShowed: (state, action) => {
-      const project = state.projects.filter((item) => item.id === action.payload)[0];
-      project.isShowed = !project.isShowed;
-    }
   }
 });
 
 export const { 
   addItem, 
   removeItem, 
-  addTask, 
-  removeTask,
-  toggleIsShowed 
 } = projectsListSlice.actions;
 
 export default projectsListSlice.reducer;

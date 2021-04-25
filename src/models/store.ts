@@ -5,6 +5,7 @@ import modalsSlice from "./slices/modalsSlice";
 import profileSlice from "./slices/profileSlice";
 import projectsListSlice from "./slices/projectsListSlice";
 import sidebarSlice from "./slices/sidebarSlice";
+import tasksPageSlice from "./slices/tasksPageSlice";
 
 const rootReducer = combineReducers({
   sidebar: sidebarSlice,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   profile: profileSlice,
   projectsList: projectsListSlice,
   modals: modalsSlice,
+  taskPage: tasksPageSlice,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

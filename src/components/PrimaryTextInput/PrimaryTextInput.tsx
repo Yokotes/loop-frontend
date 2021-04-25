@@ -4,7 +4,7 @@ import styles from './PrimaryTextInput.module.css';
 type PrimaryTextInputProps = {
   label: string;
   htmlId: string;
-  onChange?(): void;
+  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 const PrimaryTextInput = ({ label, htmlId, onChange }: PrimaryTextInputProps) => {

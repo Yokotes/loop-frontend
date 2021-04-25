@@ -3,6 +3,31 @@
   height: 100%;
   /* display: flex; */
   padding: 10px;
+  padding-top: 15px;
+}
+
+.projectTitle {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  width: 15px;
+  transform: rotateZ(-90deg);
+}
+
+.arrow > img {
+  width: 100%;
+}
+
+.title {
+  text-decoration: none;
+  color: #000;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1rem;
+  margin-left: 10px;
+  opacity: 0.5;
 }
 
 .tasksContainer {
