@@ -9,7 +9,7 @@ const TasksPage = () => {
   const taskPageState = useSelector((state: RootState) => state.taskPage);
 
   return (
-    taskPageState.currentProject !== '' ?
+    taskPageState.currentProject.id !== '' ?
       <div className={styles.container}>
         <div className={styles.projectTitle}>
           <img 
@@ -18,7 +18,7 @@ const TasksPage = () => {
             className={styles.arrow}
           />
           <Link to="/projects" className={styles.title}>
-            { taskPageState.currentProject }
+            { taskPageState.currentProject.title }
           </Link>
         </div>
         <div className={styles.tasksContainer}>

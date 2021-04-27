@@ -19,22 +19,44 @@
 .status {
   width: 25px;
   opacity: 0.5;
-  margin-right: 10px;
+  cursor: pointer;
+}
+
+.status.hide {
+  display: none;
 }
 
 .status > img {
   width: 100%;
 }
 
+.selectStatus {
+  padding: 5px;
+  display: none;
+}
+
+.selectStatus.show {
+  display: block;
+}
+
+.selectStatus:focus {
+  outline: none;
+}
+
 .title {
   font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
+  display: block;
+  max-width: 400px;
+  overflow-wrap: break-word;
+  margin-left: 10px;
 }
 
 .btns {
   display: flex;
   align-items: center;
   padding-right: 5px;
+  margin-left: 10px;
 }
 
 .btn {

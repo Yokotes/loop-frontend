@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
 import TasksPage from './containers/TasksPage/TasksPage';
 import AddTaskModal from './modals/AddTaskModal/AddTaskModal';
+import ProjectModal from './modals/ProjectModal/ProjectModal';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         
           {/* Modals */}
           <AddTaskModal />
+          <ProjectModal />
         </div>
       </Router>
   );

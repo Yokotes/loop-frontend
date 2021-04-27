@@ -1,5 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { showProjectModal } from '../../controllers/modalsController';
+import { setCurrentProject } from '../../models/slices/tasksPageSlice';
 import styles from './Project.module.css';
 
 type ProjectProps = {
@@ -9,11 +12,21 @@ type ProjectProps = {
 }
 
 const Project = ({ id, title, img }: ProjectProps) => {
+  const dispatch = useDispatch();
+  
+  const handleClick = () => {
+    dispatch(setCurrentProject({
+      id,
+      title
+    }));
+  }
+  
   return (
     <div className={styles.item}>
       <Link 
         className={styles.imgContainer}
         to="/tasks"
+        onClick={handleClick}
       >
         <img src={img} alt={title + " image"} className={styles.img}/>
       </Link>
@@ -27,6 +40,7 @@ const Project = ({ id, title, img }: ProjectProps) => {
               src="img/buttons/edit.svg" 
               alt="Edit"
               title="Edit"
+              onClick={() => dispatch(showProjectModal())}
             />
           </button>
           <button className={styles.btn}>

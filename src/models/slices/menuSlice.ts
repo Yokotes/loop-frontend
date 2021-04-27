@@ -18,13 +18,6 @@ const menuSlice = createSlice({
         path: '/tasks',
         isCurrent: false,
       },
-      {
-        id: 2,
-        title: 'Support',
-        icon: 'img/menu/support.svg',
-        path: '/support',
-        isCurrent: false,
-      }
     ]
   },
   reducers: {

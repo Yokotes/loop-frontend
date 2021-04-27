@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const taskPageSlice = createSlice({
   name: 'taskPage',
   initialState: {
-    currentProject: '404',
+    currentProject: {
+      id: '0',
+      title: '404'
+    },
     groups: [
       {
         id: '0',
@@ -13,13 +16,18 @@ const taskPageSlice = createSlice({
           {
             id: '0',
             title: 'Do awesome stuff',
-            status: 1
+            status: 3
           }
         ]
       }
     ]
   },
   reducers: {
+    setCurrentProject: (state, action) => {
+      state.currentProject.id = action.payload.id;
+      state.currentProject.title = action.payload.title
+      state.groups = [];
+    },
     addGroup: (state, action) => {
       state.groups.push(action.payload);
     },
@@ -27,15 +35,15 @@ const taskPageSlice = createSlice({
       state.groups = state.groups.filter((group) => group.id !== action.payload);
     },
     addTask: (state, action) => {
-      const group = state.groups.filter((group) => group.id === action.payload.projectId)[0];
+      const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
       group.tasks.push(action.payload.taskData);
     },
     removeTask: (state, action) => {
-      const group = state.groups.filter((group) => group.id === action.payload.projectId)[0];
+      const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
       group.tasks = group.tasks.filter((task) => task.id !== action.payload.taskId);
     },
     setTaskStatus: (state, action) => {
-      const group = state.groups.filter((group) => group.id === action.payload.projectId)[0];
+      const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
       const task = group.tasks.filter((item) => item.id === action.payload.taskId)[0];
       task.status = action.payload.status;
     },
@@ -47,6 +55,7 @@ const taskPageSlice = createSlice({
 });
 
 export const { 
+  setCurrentProject,
   addGroup,
   removeGroup, 
   addTask,  

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 enum Modals {
   ADD_TASK = 0,
+  PROJECT = 1,
 }
 
 const modalsSlice = createSlice({
@@ -13,18 +14,26 @@ const modalsSlice = createSlice({
         isShow: false,
         data: {
           taskTitle: '',
-          currentProjectId: '',
+          currentGroupId: '',
         }
       },
+      {
+        name: 'project',
+        isShow: true,
+        data: {
+          projectTitle: '',
+          projectImg: '',
+        }
+      }
     ],
   },
   reducers: {
     // Add task modal
-    setCurrentProject: (state, action) => {
-      state.modals[Modals.ADD_TASK].data.currentProjectId = action.payload;
+    setCurrentGroup: (state, action) => {
+      state.modals[Modals.ADD_TASK].data.currentGroupId = action.payload;
     },
-    dropCurrentProject: (state) => {
-      state.modals[Modals.ADD_TASK].data.currentProjectId = '';
+    dropCurrentGroup: (state) => {
+      state.modals[Modals.ADD_TASK].data.currentGroupId = '';
     },
     setTaskTitle: (state, action) => {
       state.modals[Modals.ADD_TASK].data.taskTitle = action.payload;
@@ -48,8 +57,8 @@ export { Modals }
 export const { 
   showModal, 
   hideModal,
-  setCurrentProject,
-  dropCurrentProject,
+  setCurrentGroup,
+  dropCurrentGroup,
   setTaskTitle,
 } = modalsSlice.actions
 

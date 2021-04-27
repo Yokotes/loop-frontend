@@ -12,7 +12,7 @@
 }
 
 .showed > .body {
-  max-height: 500px;
+  max-height: 1500px;
   /* transition: max-height 1s ease-in; */
 }
 
