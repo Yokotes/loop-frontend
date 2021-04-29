@@ -23,6 +23,7 @@ const modalsSlice = createSlice({
         data: {
           projectTitle: '',
           projectImg: '',
+          previewShowed: false,
         }
       }
     ],
@@ -37,6 +38,17 @@ const modalsSlice = createSlice({
     },
     setTaskTitle: (state, action) => {
       state.modals[Modals.ADD_TASK].data.taskTitle = action.payload;
+    },
+
+    // Project modal
+    setProjectImg: (state, action) => {
+      state.modals[Modals.PROJECT].data.projectImg = action.payload;
+    },
+    setProjectTitle: (state, action) => {
+      state.modals[Modals.PROJECT].data.projectTitle = action.payload;
+    },
+    setProjectPreviewShowed: (state, action) => {
+      state.modals[Modals.PROJECT].data.previewShowed = action.payload;
     },
 
     // General
@@ -60,6 +72,9 @@ export const {
   setCurrentGroup,
   dropCurrentGroup,
   setTaskTitle,
+  setProjectImg,
+  setProjectTitle,
+  setProjectPreviewShowed,
 } = modalsSlice.actions
 
 export default modalsSlice.reducer;

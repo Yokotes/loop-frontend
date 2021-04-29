@@ -5,7 +5,7 @@ type PrimaryFileInputProps = {
   label: string,
   htmlId: string,
   className?: string,
-  onChange?(): void,
+  onChange?(e: React.ChangeEvent): void,
 }
 
 const PrimaryFileInput = ({ label, className, htmlId, onChange }: PrimaryFileInputProps) => {
@@ -16,12 +16,14 @@ const PrimaryFileInput = ({ label, className, htmlId, onChange }: PrimaryFileInp
       </label>
       <div className={styles.inputContainer}>
         <span className={styles.falseInput}>
+          <img src="img/buttons/attach.svg" alt="+"/>
           Attach image
         </span>
         <input 
           type="file"
           className={styles.input}
           id={htmlId}
+          onChange={onChange}
         />
       </div>
     </div>

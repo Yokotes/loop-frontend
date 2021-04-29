@@ -28,7 +28,11 @@ const Project = ({ id, title, img }: ProjectProps) => {
         to="/tasks"
         onClick={handleClick}
       >
-        <img src={img} alt={title + " image"} className={styles.img}/>
+        <img 
+          src={img} 
+          alt={title + " image"} 
+          className={styles.img}
+        />
       </Link>
       <div className={styles.content}>
         <h3 className={styles.title}>
