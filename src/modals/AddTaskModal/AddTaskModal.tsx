@@ -25,6 +25,7 @@ const AddTaskModal = () => {
           <PrimaryTextInput 
             label="Title:"
             htmlId="taskTitle"
+            value={modalState.data.taskTitle}
             onChange={
               (e: React.ChangeEvent<HTMLInputElement>) => (
                 dispatch(setTaskTitleValue(e.currentTarget.value))

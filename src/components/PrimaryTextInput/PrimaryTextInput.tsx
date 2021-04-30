@@ -2,14 +2,24 @@ import React from 'react';
 import styles from './PrimaryTextInput.module.css';
 
 type PrimaryTextInputProps = {
+  className?: string;
   label: string;
   htmlId: string;
   onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
+  isPassword?: boolean;
+  value?: string;
 }
 
-const PrimaryTextInput = ({ label, htmlId, onChange }: PrimaryTextInputProps) => {
+const PrimaryTextInput = ({ 
+  className, 
+  label, 
+  htmlId, 
+  onChange, 
+  isPassword=false,
+  value=""
+}: PrimaryTextInputProps) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className}`}>
       <label 
         htmlFor={htmlId} 
         className={styles.label}
@@ -18,9 +28,10 @@ const PrimaryTextInput = ({ label, htmlId, onChange }: PrimaryTextInputProps) =>
       </label>
       <input
         id={htmlId}
-        type="text"
+        type={isPassword ? "password": "text" }
         className={styles.input}
         onChange={onChange}
+        value={value}
       />
     </div>
   )

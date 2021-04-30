@@ -4,9 +4,12 @@ import styles from './App.module.css';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
+import StartPage from './containers/StartPage/StartPage';
 import TasksPage from './containers/TasksPage/TasksPage';
 import AddTaskModal from './modals/AddTaskModal/AddTaskModal';
 import ProjectModal from './modals/ProjectModal/ProjectModal';
+import SignInModal from './modals/SignInModal/SignInModal';
+import SignUpModal from './modals/SignUpModal/SignUpModal';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
                 <Route path="/tasks">
                   <TasksPage />
                 </Route>
+                <Route path="/start">
+                  <StartPage />
+                </Route>
               </Switch>
             </div>
           </div>
@@ -37,6 +43,8 @@ function App() {
           {/* Modals */}
           <AddTaskModal />
           <ProjectModal />
+          <SignInModal />
+          <SignUpModal />
         </div>
       </Router>
   );

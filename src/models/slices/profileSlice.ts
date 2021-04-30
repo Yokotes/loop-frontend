@@ -27,6 +27,11 @@ const profileSlice = createSlice({
   }
 });
 
-export const { setUserName, setUserImg, setUserToken } = profileSlice.actions;
+export const { 
+  setUserName, 
+  setUserImg, 
+  setUserToken,
+  setUserRole,
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

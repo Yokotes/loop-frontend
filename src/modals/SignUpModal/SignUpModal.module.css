@@ -1,0 +1,13 @@
+.input {
+  margin-bottom: 15px;
+}
+
+.btn {
+  display: block;
+  margin: 0 auto;
+  margin-top: 35px;
+}
+
+.valid.wrong input {
+  border-color: red;
+}

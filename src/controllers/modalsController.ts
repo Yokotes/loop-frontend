@@ -1,5 +1,20 @@
 import React from "react"
-import { hideModal, Modals, setCurrentGroup, setProjectPreviewShowed, setProjectImg, setProjectTitle, setTaskTitle, showModal } from "../models/slices/modalsSlice"
+import { 
+  hideModal, 
+  Modals, 
+  setCurrentGroup, 
+  setProjectPreviewShowed, 
+  setProjectImg, 
+  setProjectTitle, 
+  setTaskTitle, 
+  showModal, 
+  setSignInLogin, 
+  setSignInPassword, 
+  setSignUpLogin,
+  setSignUpPassword,
+  setSignUpValidPass
+} from "../models/slices/modalsSlice"
+import { RootState } from "../models/store"
 
 /*
   Add task modal
@@ -60,4 +75,73 @@ export {
   setProjectTitleValue,
   loadImgToPreview,
   dropImgToPreview
+}
+
+/* 
+  Sign in modal
+*/
+const showSignInModal = () => (dispatch: any) => {
+  dispatch(showModal(Modals.SIGN_IN));
+}
+
+const hideSignInModal = () => (dispatch: any) => {
+  dispatch(hideModal(Modals.SIGN_IN));
+}
+
+const setSignInLoginValue = (value: string) => (dispatch: any) => {
+  dispatch(setSignInLogin(value));
+}
+
+const setSignInPasswordValue = (value: string) => (dispatch: any) => {
+  dispatch(setSignInPassword(value));
+}
+
+export {
+  showSignInModal,
+  hideSignInModal,
+  setSignInLoginValue,
+  setSignInPasswordValue,
+}
+
+/*
+  Sign up modal
+*/
+const showSignUpModal = () => (dispatch: any) => {
+  dispatch(showModal(Modals.SIGN_UP));
+} 
+
+const hideSignUpModal = () => (dispatch: any) => {
+  dispatch(hideModal(Modals.SIGN_UP));
+}
+
+const setSignUpLoginValue = (value: string) => (dispatch: any) => {
+  dispatch(setSignUpLogin(value));
+}
+
+const setSignUpPasswordValue = (value: string) => (dispatch: any) => {
+  dispatch(setSignUpPassword(value));
+}
+
+const setSignUpValidPassValue = (value: string, className?: string, wrongClass?: string) => (dispatch: any, getState: any) => {
+  const state: RootState = getState();
+  const password = state.modals.modals[Modals.SIGN_UP].data.password as string;
+  const input = document.querySelector(`.${className}`);
+
+  if (wrongClass) {
+    if (value !== password) {
+      input?.classList.add(wrongClass);
+    }
+    else 
+      input?.classList.remove(wrongClass);
+  }
+
+  dispatch(setSignUpValidPass(value));
+}
+
+export {
+  showSignUpModal,
+  hideSignUpModal,
+  setSignUpLoginValue,
+  setSignUpPasswordValue,
+  setSignUpValidPassValue,
 }

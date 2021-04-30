@@ -42,6 +42,7 @@ const ProjectModal = () => {
             <PrimaryTextInput 
               htmlId="project-title"
               label="Title:"
+              value={modalState.data.projectTitle}
               onChange={
                 (e: React.ChangeEvent<HTMLInputElement>) => (
                   dispatch(setProjectTitleValue(e.currentTarget.value))

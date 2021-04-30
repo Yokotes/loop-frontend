@@ -1,7 +1,7 @@
 import { dropCurrentGroup, Modals } from "../models/slices/modalsSlice";
 import { addTask, removeTask, setTaskStatus } from "../models/slices/tasksPageSlice";
 import { RootState } from "../models/store";
-import { hideAddTaskModal } from "./modalsController";
+import { hideAddTaskModal, setTaskTitleValue } from "./modalsController";
 
 const addNewTask = () => (dispatch: any, getState: any) => {
   const state: RootState = getState();
@@ -27,7 +27,9 @@ const addNewTask = () => (dispatch: any, getState: any) => {
     taskData
   }));
   dispatch(dropCurrentGroup());
-  dispatch(hideAddTaskModal())
+
+  dispatch(setTaskTitleValue(""));
+  dispatch(hideAddTaskModal());
 }
 
 const deleteTask = (taskId: string, groupId: string) => (dispatch: any) => {

@@ -9,6 +9,16 @@ const ProfileLink = () => {
   const user = useSelector((state: RootState) => state.profile.currentUser);
   const dispatch = useDispatch();
 
+  const toggleHiddenMenu = () => {
+    const menu = document.querySelector(`.${styles.menu}`) as HTMLElement;
+    const classList = menu.classList;
+
+    if (classList.contains(styles.show))
+      classList.remove(styles.show)
+    else 
+      classList.add(styles.show)
+  }
+
   return (
     <div className={styles.profile}>
       <p className={styles.content}>
@@ -19,20 +29,34 @@ const ProfileLink = () => {
           {user.role}
         </span>
       </p>
-      <Link 
-        to="/profile" 
+      <button 
         className={styles.img}
-        onClick={() => dispatch(setCurrentMenuItem(-1))}
+        onClick={toggleHiddenMenu}
         >
-        <svg className={styles.circle}>
-          <circle cx="25" cy="25" r="22"></circle>
-        </svg>
         <img 
           src={user.img} 
           alt={user.name}
           className={styles.img}
         />
-      </Link>
+      </button>
+      <nav 
+        className={styles.menu}
+        onClick={toggleHiddenMenu}
+      >
+        <Link 
+          to="/profile"
+          className={styles.link}   
+          onClick={() => dispatch(setCurrentMenuItem(-1))}     
+        >
+          Profile
+        </Link>
+        <Link 
+          to="/start"
+          className={`${styles.link} ${styles.logout}`}
+        >
+          Sign out
+        </Link>
+      </nav>
     </div>
   )
 }
