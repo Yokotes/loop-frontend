@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styles from './App.module.css';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
+import ProfilePage from './containers/ProfilePage/ProfilePage';
 import ProjectsPage from './containers/ProjectsPage/ProjectsPage';
 import StartPage from './containers/StartPage/StartPage';
 import TasksPage from './containers/TasksPage/TasksPage';
@@ -35,6 +36,9 @@ function App() {
                 </Route>
                 <Route path="/start">
                   <StartPage />
+                </Route>
+                <Route path="/profile">
+                  <ProfilePage />
                 </Route>
               </Switch>
             </div>

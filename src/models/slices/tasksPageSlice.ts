@@ -19,10 +19,32 @@ const taskPageSlice = createSlice({
             status: 3
           }
         ]
-      }
+      },
+      {
+        id: '1',
+        title: 'Whatever',
+        isShowed: false,
+        tasks: []
+      },
+      {
+        id: '2',
+        title: 'Something else',
+        isShowed: false,
+        tasks: []
+      },
+      {
+        id: '3',
+        title: 'New',
+        isShowed: false,
+        tasks: []
+      },
     ]
   },
   reducers: {
+    setGroupTitle: (state, action) => {
+      const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
+      group.title = action.payload.value;
+    },
     setCurrentProject: (state, action) => {
       state.currentProject.id = action.payload.id;
       state.currentProject.title = action.payload.title
@@ -55,6 +77,7 @@ const taskPageSlice = createSlice({
 });
 
 export const { 
+  setGroupTitle,
   setCurrentProject,
   addGroup,
   removeGroup, 
