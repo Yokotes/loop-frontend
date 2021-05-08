@@ -1,8 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { showProjectModal } from '../../controllers/modalsController';
 import { setCurrentMenuItem } from '../../controllers/sidebarController';
 import { RootState } from '../../models/store';
+import PrimaryBtn from '../PrimaryBtn/PrimaryBtn';
 import styles from './ProfileLink.module.css';
 
 const ProfileLink = () => {
@@ -21,6 +23,14 @@ const ProfileLink = () => {
 
   return (
     <div className={styles.profile}>
+      <div className={styles.btns}>
+        <PrimaryBtn
+          className={styles.projectBtn}
+          onClick={() => dispatch(showProjectModal())}
+        >
+          Add project
+        </PrimaryBtn>
+      </div>
       <p className={styles.content}>
         <span className={styles.name}>
           {user.name}

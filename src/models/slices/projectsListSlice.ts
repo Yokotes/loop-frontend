@@ -23,12 +23,22 @@ const projectsListSlice = createSlice({
     removeItem: (state, action) => {
       state.projects = state.projects.filter((item) => item.id !== action.payload);
     },
+    changeProjectTitle: (state, action) => {
+      const project = state.projects.filter((item) => item.id === action.payload.id)[0];
+      project.title = action.payload.value;
+    },
+    changeProjectImg: (state, action) => {
+      const project = state.projects.filter((item) => item.id === action.payload.id)[0];
+      project.img = action.payload.value;
+    }
   }
 });
 
 export const { 
   addItem, 
-  removeItem, 
+  removeItem,
+  changeProjectImg,
+  changeProjectTitle
 } = projectsListSlice.actions;
 
 export default projectsListSlice.reducer;

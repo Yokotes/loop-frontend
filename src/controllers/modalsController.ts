@@ -12,7 +12,9 @@ import {
   setSignInPassword, 
   setSignUpLogin,
   setSignUpPassword,
-  setSignUpValidPass
+  setSignUpValidPass,
+  setProjectIsEdit,
+  setEditableProjectId
 } from "../models/slices/modalsSlice"
 import { RootState } from "../models/store"
 
@@ -45,18 +47,43 @@ const showProjectModal = () => (dispatch: any) => {
   dispatch(showModal(Modals.PROJECT));
 }
 
+const setProjectIsEditValue = (value: boolean) => (dispatch: any) => {
+  dispatch(setProjectIsEdit(value));
+}
+
 const hideProjectModal = () => (dispatch: any) => {
+  dispatch(dropImgToPreview());
+  dispatch(setProjectTitleValue(""));
+  dispatch(setProjectIsEdit(false));
+  dispatch(setEditableProjectId(""));
   dispatch(hideModal(Modals.PROJECT));
 }
 
 const setProjectTitleValue = (value: string) => (dispatch: any) => {
   dispatch(setProjectTitle(value));
-} 
+}
 
-const loadImgToPreview = (e: React.ChangeEvent) => (dispatch: any) => {
-  const input = e.currentTarget as HTMLInputElement;
-  const imgFile = input.files?.item(0);
-  const imgUrl = URL.createObjectURL(imgFile);
+const setProjectModalToEdit = (id: string) => (dispatch: any, getState: any) => {
+  const state: RootState = getState();
+  const projectData = state.projectsList.projects.filter((project) => project.id === id)[0];
+
+  dispatch(setEditableProjectId(id));
+  dispatch(setProjectTitleValue(projectData.title));
+  dispatch(loadImgToPreview(projectData.img));
+  dispatch(setProjectIsEditValue(true));
+  dispatch(showProjectModal());
+}
+
+const loadImgToPreview = (e: React.ChangeEvent | string) => (dispatch: any) => {
+  let imgUrl = '';
+  
+  if (typeof e == 'string') {
+    imgUrl = e;
+  } else {
+    const input = e.currentTarget as HTMLInputElement;
+    const imgFile = input.files?.item(0);
+    imgUrl = URL.createObjectURL(imgFile);
+  }
 
   dispatch(setProjectImg(imgUrl));
   dispatch(setProjectPreviewShowed(true));
@@ -71,6 +98,8 @@ const dropImgToPreview = () => (dispatch: any) => {
 
 export {
   showProjectModal,
+  setProjectModalToEdit,
+  setProjectIsEditValue,
   hideProjectModal,
   setProjectTitleValue,
   loadImgToPreview,

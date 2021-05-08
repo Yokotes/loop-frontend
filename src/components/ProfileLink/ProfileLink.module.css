@@ -72,3 +72,7 @@
 .link:hover {
   opacity: 1;
 }
+
+.btns {
+  margin-right: 30px;
+}

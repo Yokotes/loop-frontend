@@ -26,6 +26,8 @@ const modalsSlice = createSlice({
           projectTitle: '',
           projectImg: '',
           previewShowed: false,
+          isEdit: false,
+          projectId: '',
         }
       },
       {
@@ -69,6 +71,12 @@ const modalsSlice = createSlice({
     setProjectPreviewShowed: (state, action) => {
       state.modals[Modals.PROJECT].data.previewShowed = action.payload;
     },
+    setProjectIsEdit: (state, action) => {
+      state.modals[Modals.PROJECT].data.isEdit = action.payload;
+    },
+    setEditableProjectId: (state, action) => {
+      state.modals[Modals.PROJECT].data.projectId = action.payload;
+    },
 
     // SignIn modal
     setSignInLogin: (state, action) => {
@@ -111,8 +119,10 @@ export const {
   dropCurrentGroup,
   setTaskTitle,
   setProjectImg,
+  setProjectIsEdit,
   setProjectTitle,
   setProjectPreviewShowed,
+  setEditableProjectId,
   setSignInLogin,
   setSignInPassword,
   setSignUpLogin,

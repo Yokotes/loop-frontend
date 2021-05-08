@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { showProjectModal } from '../../controllers/modalsController';
+import { setProjectModalToEdit } from '../../controllers/modalsController';
+import { removeProject } from '../../controllers/projectsController';
 import { setCurrentProject } from '../../models/slices/tasksPageSlice';
 import styles from './Project.module.css';
 
@@ -44,7 +45,9 @@ const Project = ({ id, title, img }: ProjectProps) => {
               src="img/buttons/edit.svg" 
               alt="Edit"
               title="Edit"
-              onClick={() => dispatch(showProjectModal())}
+              onClick={
+                () => dispatch(setProjectModalToEdit(id))
+              }
             />
           </button>
           <button className={styles.btn}>
@@ -52,6 +55,7 @@ const Project = ({ id, title, img }: ProjectProps) => {
               src="img/buttons/delete.svg" 
               alt="Delete"
               title="Delete"
+              onClick={() => dispatch(removeProject(id))}
             />
           </button>
         </div>

@@ -1,7 +1,7 @@
 import { Modals } from "../models/slices/modalsSlice";
-import { addItem } from "../models/slices/projectsListSlice";
+import { addItem, changeProjectImg, changeProjectTitle, removeItem } from "../models/slices/projectsListSlice";
 import { RootState } from "../models/store"
-import { dropImgToPreview, hideProjectModal, setProjectTitleValue } from "./modalsController";
+import { hideProjectModal } from "./modalsController";
 
 const addNewProject = () => (dispatch: any, getState: any) => {
   const state: RootState = getState();
@@ -22,11 +22,36 @@ const addNewProject = () => (dispatch: any, getState: any) => {
   }
 
   dispatch(addItem(projectData));
-  dispatch(dropImgToPreview());
-  dispatch(setProjectTitleValue(""));
+  dispatch(hideProjectModal());
+}
+
+const removeProject = (id: string) => (dispatch: any) => {
+  dispatch(removeItem(id));
+}
+
+const setProjectData = () => (dispatch: any, getState:() => RootState) => {
+  const state = getState();
+  const modalState = state.modals.modals[Modals.PROJECT];
+  const projectId = modalState.data.projectId;
+  const projectImg = modalState.data.projectImg;
+  const projectTitle = modalState.data.projectTitle;
+
+  if (projectImg !== '')
+    dispatch(changeProjectImg({
+      id: projectId,
+      value: projectImg
+    }));
+  if (projectTitle !== '')
+    dispatch(changeProjectTitle({
+      id: projectId,
+      value: projectTitle
+    }));
+
   dispatch(hideProjectModal());
 }
 
 export {
   addNewProject,
+  removeProject,
+  setProjectData,
 }

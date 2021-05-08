@@ -8,7 +8,7 @@ import { RootState } from '../../models/store';
 import Modal from '../Modal/Modal';
 import PrimaryBtn from '../../components/PrimaryBtn/PrimaryBtn';
 import PrimaryFileInput from '../../components/PrimaryFileInput/PrimaryFileInput';
-import { addNewProject } from '../../controllers/projectsController';
+import { addNewProject, setProjectData } from '../../controllers/projectsController';
 
 const ProjectModal = () => {
   const dispatch = useDispatch();
@@ -61,9 +61,15 @@ const ProjectModal = () => {
             />
             <PrimaryBtn 
               className={styles.btn}
-              onClick={() => dispatch(addNewProject())}
+              onClick={
+                modalState.data.isEdit ? (
+                  () => dispatch(setProjectData())
+                ) : (
+                  () => dispatch(addNewProject())
+                )
+              }
             >
-              Add project
+              { modalState.data.isEdit ? "Apply changes" : "Add project" }
             </PrimaryBtn>
           </div>
         </>
