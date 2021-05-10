@@ -1,19 +1,28 @@
+import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Application, Request, Response } from "express";
-import mongodb from "./mongodb/mongoDB";
+import { connect } from "mongoose";
 import router from "./routes/router";
+import secret from "./secret";
 
 const app: Application = express();
 
-// Plug routes
+// Plug routes and body parser
+// app.use(bodyParser.json());
+app.use(express.json());
 app.use('/api/v1', router);
 
-// Connect to database
-mongodb.connect((err) => {
-  console.log('Connected!');
-});
 
 // Start server
-app.listen(5000, () => {
-  console.log("Backend server is running!")
+app.listen(5000, async () => {
+  console.log("Backend server is running!");
+
+  await connect(
+    secret.mongoLink, 
+    { 
+      useNewUrlParser: true, 
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    }
+  )
 });
