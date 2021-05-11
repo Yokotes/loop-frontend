@@ -1,12 +1,12 @@
 class ProjectDto {
   title: string;
   img: string;
-  tasks: string[];
+  userId: string;
 
-  constructor(title: string, img: string, tasks: string[]) {
+  constructor(title: string, img: string, userId) {
     this.title = title;
     this.img = img;
-    this.tasks = tasks;
+    this.userId = userId;
   }
 }
 

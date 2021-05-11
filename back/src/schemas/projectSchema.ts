@@ -2,10 +2,11 @@ import { model, Schema } from "mongoose";
 
 const projectSchema = new Schema({
   title: String,
-  img: String,
-  tasks: Array,
+  img: {
+    type: String,
+    default: "img/default_project_img.jpg"
+  },
+  userId: String,
 });
 
-const projectModel = model("project", projectSchema);
-
-export default projectModel;
+export default model("Project", projectSchema);

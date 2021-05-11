@@ -4,9 +4,8 @@ const taskSchema = new Schema({
   title: String,
   status: String,
   group: String,
-  userId: String
+  userId: String,
+  projectId: String,
 });
 
-const taskModel = model("task", taskSchema);
-
-export default taskModel;
+export default model("Task", taskSchema);
