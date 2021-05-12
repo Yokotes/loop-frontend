@@ -16,7 +16,7 @@ const Logo = () => {
     >
       <img src="img/logo.svg" alt="Awesome logo"/>
       <h1 className={styles.title}>
-        Loop CRM
+        Loop Task Manager
       </h1>
     </Link>
   )

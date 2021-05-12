@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CircleImageInput from '../../components/CircleImageInput/CircleImageInput';
 import PrimaryBtn from '../../components/PrimaryBtn/PrimaryBtn';
 import PrimaryTextInput from '../../components/PrimaryTextInput/PrimaryTextInput';
-import { applyProfileSettings, setGroupTitleValue, setImgValue, setUsernameValue } from '../../controllers/profileController';
+import { applyProfileSettings, setGroupTitleValue, setImgValue, setPasswordValue, setUsernameValue } from '../../controllers/profileController';
 import { RootState } from '../../models/store';
 import styles from './ProfilePage.module.css';
 
@@ -58,11 +58,13 @@ const ProfilePage = () => {
             htmlId="profile-password"
             label="New password:"
             className={styles.input}
-          />
-          <PrimaryTextInput 
-            htmlId="profile-valid-pass"
-            label="Password again:"
-            className={styles.input}
+            isPassword={true}
+            value={profilePageData.password}
+            onChange={
+              (e: React.ChangeEvent<HTMLInputElement>) => (
+                dispatch(setPasswordValue(e.currentTarget.value))
+              )
+            }
           />
           <PrimaryBtn
             className={styles.btn}

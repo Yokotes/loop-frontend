@@ -1,12 +1,13 @@
+import axios from "axios";
 import React from "react";
 import { Modals } from "../models/slices/modalsSlice";
-import { setImg, setUsername } from "../models/slices/profilePageSlice";
-import { setUserImg, setUserName, setUserRole, setUserToken } from "../models/slices/profileSlice";
+import { setImg, setPassword, setUsername } from "../models/slices/profilePageSlice";
+import { setUserToken } from "../models/slices/profileSlice";
 import { setGroupTitle } from "../models/slices/tasksPageSlice";
 import { RootState } from "../models/store"
 import { hideSignInModal, hideSignUpModal, setSignInLoginValue, setSignInPasswordValue, setSignUpLoginValue, setSignUpPasswordValue, setSignUpValidPassValue } from "./modalsController";
 
-const signIn = () => (dispatch: any, getState: any) => {
+const signIn = () => async (dispatch: any, getState: any) => {
   const state: RootState = getState();
   const modalData = state.modals.modals[Modals.SIGN_IN].data;
   
@@ -16,26 +17,17 @@ const signIn = () => (dispatch: any, getState: any) => {
   }
 
   const userData = {
-    login: modalData.login,
+    username: modalData.login,
     password: modalData.password,
   }
 
   // Sending request to server
-  // ...
+  const response = await axios.post(
+    "http://localhost:5000/api/v1/user/login",
+    userData
+  );
 
-  // Writting user to the state
-  const user = {
-    name: userData.login,
-    role: "user",
-    img: "img/default_avatar.jpg",
-    token: "token",
-  };
-
-  // Profile slice
-  dispatch(setUserImg(user.img));
-  dispatch(setUserToken(user.token));
-  dispatch(setUserName(user.name))
-  dispatch(setUserRole(user.role));
+  localStorage.setItem("token", response.data.token);
 
   // Modal slice
   dispatch(setSignInLoginValue(""))
@@ -45,7 +37,7 @@ const signIn = () => (dispatch: any, getState: any) => {
   window.location.href = "/"
 }
 
-const signUp = () => (dispatch: any, getState: any) => {
+const signUp = () => async (dispatch: any, getState: any) => {
   const state: RootState = getState();
   const modalData = state.modals.modals[Modals.SIGN_UP].data;
   
@@ -60,21 +52,15 @@ const signUp = () => (dispatch: any, getState: any) => {
   }
   
   // Sending request to server
-  // ...
+  const res = await axios.post(
+    "http://localhost:5000/api/v1/user",
+    {
+      username: userData.login,
+      password: userData.password,
+    }
+  );
 
-  // Writting user to the state
-  const user = {
-    name: userData.login,
-    role: "user",
-    img: "img/default_avatar.jpg",
-    token: "token",
-  };
-
-  // Profile slice
-  dispatch(setUserImg(user.img));
-  dispatch(setUserToken(user.token));
-  dispatch(setUserName(user.name))
-  dispatch(setUserRole(user.role));
+  localStorage.setItem("token", res.data.token);
 
   // Modal slice
   dispatch(setSignUpPasswordValue(""));
@@ -82,7 +68,7 @@ const signUp = () => (dispatch: any, getState: any) => {
   dispatch(setSignUpLoginValue(""));
   dispatch(hideSignUpModal());
 
-  window.location.href = "/"
+  // window.location.href = "/"
 }
 
 export {
@@ -104,6 +90,10 @@ const setUsernameValue = (value: string) => (dispatch: any) => {
   dispatch(setUsername(value));
 }
 
+const setPasswordValue = (value: string) => (dispatch: any) => {
+  dispatch(setPassword(value));
+} 
+
 const setImgValue = (e: React.ChangeEvent | string) => (dispatch: any) => {
   let img = "";
 
@@ -118,21 +108,47 @@ const setImgValue = (e: React.ChangeEvent | string) => (dispatch: any) => {
   dispatch(setImg(img))
 }
 
-const applyProfileSettings = () => (dispatch: any, getState: any) => {
+const applyProfileSettings = () => async (dispatch: any, getState: any) => {
   const state: RootState = getState();
+  const user = state.profile.currentUser;
   const profilePageState = state.profilePage.pageData;
+  let img: Blob | string = "";
+
+  // Loading image
+  if (profilePageState.img !== user.img) {
+    img = await (await fetch(profilePageState.img)).blob();
+  }
+
+  const formData = new FormData();
+  formData.append("name", profilePageState.username);
+  formData.append("password", profilePageState.password ?? false);
+  formData.append("group1", "1");
+  formData.append("group2", "2");
+  formData.append("group3", "3");
+  formData.append("group4", "4");
+  formData.append("img", img, "img");
 
   // Sending request to the server
-  // ...
+  const response = await axios.put(
+    `http://localhost:5000/api/v1/user/${user._id}`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "content-type": "multipart/form-data"
+      }
+    }
+  )
 
   // Applying profile setting to Front-end
-  dispatch(setUserName(profilePageState.username));
-  dispatch(setUserImg(profilePageState.img));
+  // localStorage.setItem("token", response.data.token);
+  // dispatch(setUserToken(response.data.token));
 }
 
 export {
   setGroupTitleValue,
   applyProfileSettings,
   setImgValue,
+  setPasswordValue,
   setUsernameValue,
 }

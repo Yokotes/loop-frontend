@@ -4,13 +4,17 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState: {
     currentUser: {
-      name: 'default',
-      img: 'img/default_avatar.jpg',
-      role: 'user',
-      token: 'default-token',
+      _id: '',
+      name: '',
+      img: '',
+      role: '',
+      token: '',
     }
   },
   reducers: {
+    setUserId: (state, action) => {
+      state.currentUser._id = action.payload;
+    },
     setUserName: (state, action) => {
       state.currentUser.name = action.payload;
     },
@@ -32,6 +36,7 @@ export const {
   setUserImg, 
   setUserToken,
   setUserRole,
+  setUserId
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

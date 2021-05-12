@@ -4,6 +4,7 @@ import ProjectDto from "../dtos/projectDto";
 import Project from "../schemas/projectSchema";
 import secret from "../secret";
 import * as fs from "fs";
+import { deleteImg, loadImg } from "../utils/images";
 
 const projectRouter = Router();
 
@@ -68,7 +69,7 @@ projectRouter.delete(
       return;
     }
 
-    deleteImg(`../nginx/public/projects/${project._id}.png`);
+    deleteImg(`projects/${project._id}.png`);
     project.delete();
 
     res.sendStatus(200);
@@ -83,7 +84,7 @@ const createNewProject = async (projectDto: ProjectDto, imgData: any) => {
 
   // Save image
   if (imgData) {
-    loadImg(`../nginx/public/projects/${project._id}.png`, imgData);
+    loadImg(`projects/${project._id}.png`, imgData);
 
     await project.updateOne({
       $set: {
@@ -124,17 +125,6 @@ const updateProject = async (id: string, projectDto: ProjectDto, imgData: any) =
     title: projectDto.title,
     img: `img/projects/${project._id}.png`,
   };
-}
-
-const loadImg = (path: string, data: any) => {
-  fs.open(path, "w", (err, file) =>  {
-    if (err) throw err;
-    fs.writeSync(file, data);
-  });
-}
-
-const deleteImg = (path: string) => {
-  fs.unlinkSync(path);
 }
 
 export default projectRouter;
