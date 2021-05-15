@@ -8,6 +8,12 @@ const profilePageSlice = createSlice({
       password: '',
       validPassword: '',
       img: '',
+      groupAliases: [
+        '#1',
+        '#2',
+        '#3',
+        '#4',
+      ]
     }
   },
   reducers: {
@@ -22,11 +28,15 @@ const profilePageSlice = createSlice({
     },
     setImg: (state, action) => {
       state.pageData.img = action.payload;
+    },
+    setGroupAlias: (state, action) => {
+      state.pageData.groupAliases[action.payload.id] = action.payload.value;
     }
   }
 });
 
 export const { 
+  setGroupAlias,
   setUsername, 
   setPassword, 
   setValidPassword,

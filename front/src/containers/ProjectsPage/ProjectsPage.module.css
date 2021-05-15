@@ -5,3 +5,8 @@
   gap: 10px;
   padding: 10px;
 }
+
+.note {
+  font-family: "Roboto Condensed", sans-serif;
+  opacity: 0.5;
+}

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { showProjectModal, showSignInModal, showSignUpModal } from '../../controllers/modalsController';
+import { setGroupTitleValue, signOut } from '../../controllers/profileController';
 import { setCurrentMenuItem } from '../../controllers/sidebarController';
 import { setUserId, setUserImg, setUserName, setUserRole, setUserToken } from '../../models/slices/profileSlice';
 import { RootState } from '../../models/store';
@@ -46,6 +47,10 @@ const ProfileLink = () => {
           dispatch(setUserImg(resUser.img));
           dispatch(setUserName(resUser.name));
           dispatch(setUserRole(resUser.role));
+          
+          for (let i = 0; i < resUser.groupAliases.length; i++) {
+            dispatch(setGroupTitleValue(i.toString(), resUser.groupAliases[i]));
+          }
         }
       })
     }
@@ -95,6 +100,9 @@ const ProfileLink = () => {
           <Link 
             to="/start"
             className={`${styles.link} ${styles.logout}`}
+            onClick={
+              () => dispatch(signOut())
+            }
           >
             Sign out
           </Link>

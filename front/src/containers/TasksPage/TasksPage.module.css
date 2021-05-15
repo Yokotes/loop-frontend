@@ -36,3 +36,9 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+.note {
+  padding: 10px;
+  font-family: "Roboto Condensed", sans-serif;
+  opacity: 0.5;
+}

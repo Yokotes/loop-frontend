@@ -3,13 +3,21 @@ import { hash, compare } from "bcrypt";
 import * as expressJwt from "express-jwt";
 import * as jwt from "jsonwebtoken";
 import * as multer from "multer";
+import { StorageEngine } from "multer";
 import secret from "../secret";
 import User from "../schemas/userSchema";
 import UserDto from "../dtos/userDto";
 import { loadImg } from "../utils/images";
 
 const userRouter = Router();
-const upload = multer();
+const storage = multer.diskStorage({
+  destination: "../front/public/img/users/",
+  filename: function (req, file, cb) {
+    const id = req.user["_id"];
+    cb(null, id);
+  }
+});
+const upload = multer({ storage });
 
 // REST
 userRouter.post("/", async (req: Request, res: Response) => {
@@ -71,7 +79,6 @@ userRouter.get(
   expressJwt({ secret: secret.jwtSecret, algorithms: ['HS256'] }), 
   async (req: Request, res: Response) => {
     const reqUser = req.user;
-
     const user = await User.findById(reqUser["_id"]);
 
     if (!user) {
@@ -106,16 +113,13 @@ userRouter.put(
     },
     {
       name: "group1"
-    }
-    ,
+    },
     {
       name: "group2"
-    }
-    ,
+    },
     {
       name: "group3"
-    }
-    ,
+    },
     {
       name: "group4"
     }
@@ -131,33 +135,30 @@ userRouter.put(
     const user = await User.findById(req.params["id"]);
     const password = body["password"] ? await hash(body["password"], secret.salt): user["password"];
     let img = user["img"];
-    console.log(req.body);
-    console.log(req.files);
+    const groupAliases = [body["group1"], body["group2"], body["group3"], body["group4"]];
 
-  //   if (body["img"]) {
-  //     console.log(body["img"])
-  //     await loadImg(`users/${req.params["id"]}.png`, body["img"]);
-  //     img = `users/${req.params["id"]}.png`;
-  //   }
+    if (req.files["img"]) {
+      img = `img/users/${req.user["_id"]}`;
+    }
 
-  //   const updatedUser = await user.updateOne({
-  //     $set: {
-  //       name: body["name"],
-  //       img: img,
-  //       groupAliases: body["groupAliases"],
-  //       password: password
-  //     }
-  //   });
+    await user.updateOne({
+      $set: {
+        name: body["name"],
+        img: img,
+        groupAliases: groupAliases,
+        password: password
+      }
+    });
 
-  //   const token = jwt.sign(
-  //     {
-  //       username: updatedUser["username"],
-  //       _id: updatedUser._id
-  //     }, 
-  //     secret.jwtSecret
-  //   );
+    const token = jwt.sign(
+      {
+        username: body["name"],
+        _id: user._id
+      }, 
+      secret.jwtSecret
+    );
 
-  //   res.send({ token });
+    res.send({ token });
   }
 );
 

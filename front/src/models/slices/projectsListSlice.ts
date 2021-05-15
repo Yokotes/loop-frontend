@@ -1,34 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export type ProjectType = {
+  id: string,
+  title: string,
+  img: string,
+}
+
 const projectsListSlice = createSlice({
   name: 'projectsList',
   initialState: {
-    projects: [
-      {
-        id: '0',
-        title: 'My awesome project',
-        img: 'img/default_project_img.jpg',
-      },
-      {
-        id: '1',
-        title: 'Test project',
-        img: 'img/default_project_img.jpg',
-      }
-    ]
+    projects: [],
   },
   reducers: {
     addItem: (state, action) => {
-      state.projects.push(action.payload);
+      const projects: ProjectType[] = state.projects;
+      projects.push(action.payload);
     },
     removeItem: (state, action) => {
-      state.projects = state.projects.filter((item) => item.id !== action.payload);
+      (state.projects as ProjectType[]) = state.projects.filter((item) => item["id"] !== action.payload);
     },
     changeProjectTitle: (state, action) => {
-      const project = state.projects.filter((item) => item.id === action.payload.id)[0];
+      const projects: ProjectType[] = state.projects;
+      const project = projects.filter((item) => item.id === action.payload.id)[0];
       project.title = action.payload.value;
     },
     changeProjectImg: (state, action) => {
-      const project = state.projects.filter((item) => item.id === action.payload.id)[0];
+      const projects: ProjectType[] = state.projects;
+      const project = projects.filter((item) => item.id === action.payload.id)[0];
       project.img = action.payload.value;
     }
   }

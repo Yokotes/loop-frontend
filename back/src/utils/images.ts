@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-const PUBLIC_PATH = "../nginx/public/img/";
+const PUBLIC_PATH = "../front/public/img/";
 
 const loadImg = async (path: string, data: Blob) => {
   const imgData = await data.text();
@@ -12,7 +12,9 @@ const loadImg = async (path: string, data: Blob) => {
 }
 
 const deleteImg = (path: string) => {
-  fs.unlinkSync(PUBLIC_PATH + path);
+  if (fs.existsSync(PUBLIC_PATH + path)) {
+    fs.unlinkSync(PUBLIC_PATH + path);
+  }
 }
 
 export { loadImg, deleteImg }

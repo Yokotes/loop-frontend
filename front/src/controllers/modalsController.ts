@@ -65,11 +65,11 @@ const setProjectTitleValue = (value: string) => (dispatch: any) => {
 
 const setProjectModalToEdit = (id: string) => (dispatch: any, getState: any) => {
   const state: RootState = getState();
-  const projectData = state.projectsList.projects.filter((project) => project.id === id)[0];
+  const projectData = state.projectsList.projects.filter((project) => project["id"] === id)[0];
 
   dispatch(setEditableProjectId(id));
-  dispatch(setProjectTitleValue(projectData.title));
-  dispatch(loadImgToPreview(projectData.img));
+  dispatch(setProjectTitleValue(projectData["title"]));
+  dispatch(loadImgToPreview(projectData["img"]));
   dispatch(setProjectIsEditValue(true));
   dispatch(showProjectModal());
 }

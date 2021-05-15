@@ -19,6 +19,8 @@ const TasksContainer = ({ id, groupTitle, tasks, isShowed }: TasksContainerProps
   const handleChangeStatus = (status: number, taskId: string) => {
     dispatch(changeStatus(status, taskId, id));
   }
+
+  // console.log(tasks);
   
   return (
     <div className={`${styles.container} ${isShowed ? styles.showed: ''}`}>

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import CircleImageInput from '../../components/CircleImageInput/CircleImageInput';
 import PrimaryBtn from '../../components/PrimaryBtn/PrimaryBtn';
 import PrimaryTextInput from '../../components/PrimaryTextInput/PrimaryTextInput';
-import { applyProfileSettings, setGroupTitleValue, setImgValue, setPasswordValue, setUsernameValue } from '../../controllers/profileController';
+import { applyProfileSettings, setImgValue, setPasswordValue, setUsernameValue } from '../../controllers/profileController';
+import { setGroupAlias } from '../../models/slices/profilePageSlice';
 import { RootState } from '../../models/store';
 import styles from './ProfilePage.module.css';
 
@@ -21,7 +22,14 @@ const ProfilePage = () => {
   useEffect(() => {
     dispatch(setUsernameValue(profileData.name))
     dispatch(setImgValue(profileData.img));
-  }, [profileData.name, profileData.img, dispatch])
+
+    for (let i = 0; i < groups.length; i++) {
+      dispatch(setGroupAlias({
+        id: i,
+        value: groups[i].title
+      }));
+    }
+  }, [profileData.name, profileData.img, dispatch, groups])
 
   return (
     <div className={styles.container}>
@@ -80,16 +88,19 @@ const ProfilePage = () => {
         <form className={styles.form}>
           {
             groups.map(
-              (group) => (
+              (group, index) => (
                 <PrimaryTextInput
                   key={group.id} 
                   htmlId={`profile-group-${group.id}`}
                   label={`#${group.id} Group`}
-                  value={group.title}
+                  value={profilePageData.groupAliases[index]}
                   className={styles.input}
                   onChange={
                     (e: React.ChangeEvent<HTMLInputElement>) => (
-                      dispatch(setGroupTitleValue(group.id, e.currentTarget.value))
+                      dispatch(setGroupAlias({
+                        id: index,
+                        value: e.currentTarget.value,
+                      }))
                     )
                   }
                 />

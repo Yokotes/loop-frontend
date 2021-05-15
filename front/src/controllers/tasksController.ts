@@ -1,30 +1,43 @@
+import axios from "axios";
 import { dropCurrentGroup, Modals } from "../models/slices/modalsSlice";
 import { addTask, removeTask, setTaskStatus } from "../models/slices/tasksPageSlice";
 import { RootState } from "../models/store";
 import { hideAddTaskModal, setTaskTitleValue } from "./modalsController";
 
-const addNewTask = () => (dispatch: any, getState: any) => {
+const addNewTask = () => async (dispatch: any, getState: any) => {
   const state: RootState = getState();
-  const taskModal = state.modals.modals[Modals.ADD_TASK]
+  const taskModal = state.modals.modals[Modals.ADD_TASK];
+  const user = state.profile.currentUser;
+  const projectId = state.taskPage.currentProject.id;
 
   // Add task to database
-  // ...
-  
-  // Getting id
-  const groupId = taskModal.data.currentGroupId;
-  const tasksList = state.taskPage.groups.filter((item) => item.id === groupId)[0];
-  const id = tasksList.tasks.length.toString()
-
-  // Add task to front-end side
   const taskData = {
-    id,
     title: taskModal.data.taskTitle,
-    status: 1
+    group: taskModal.data.currentGroupId,
+    userId: user._id,
+    projectId,
   }
 
+  const response = await axios.post(
+    "http://localhost:5000/api/v1/task",
+    taskData,
+    {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    }
+  );
+
+  // Add task to front-end side
+  const task = response.data.task;
+
   dispatch(addTask({
-    groupId,
-    taskData
+    groupId: task.group,
+    taskData: {
+      id: task._id,
+      title: task.title,
+      status: task.status,
+    }
   }));
   dispatch(dropCurrentGroup());
 
@@ -32,18 +45,48 @@ const addNewTask = () => (dispatch: any, getState: any) => {
   dispatch(hideAddTaskModal());
 }
 
-const deleteTask = (taskId: string, groupId: string) => (dispatch: any) => {
+const deleteTask = (taskId: string, groupId: string) => async (dispatch: any, getState: () => RootState) => {
+  const state = getState();
+  const token = state.profile.currentUser.token;
+  
+  await axios.delete(
+    `http://localhost:5000/api/v1/task/${taskId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  )
+
   dispatch(removeTask({
     taskId,
     groupId
   }));
 }
 
-const changeStatus = (status: number, taskId: string, groupId: string) => (dispatch: any) => {
+const changeStatus = (status: number, taskId: string, groupId: string) => async (dispatch: any, getState: () => RootState) => {
+  const state = getState();
+  const user = state.profile.currentUser;
+
+  const response = await axios.put(
+    `http:///localhost:5000/api/v1/task/${taskId}`,
+    {
+      status,
+      userId: user._id 
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    }
+  );
+
+  const newStatus: number = response.data.status;
+
   dispatch(setTaskStatus({
     groupId,
     taskId,
-    status
+    status: newStatus
   }))
 }
 

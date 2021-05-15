@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { Modals } from "../models/slices/modalsSlice";
 import { setImg, setPassword, setUsername } from "../models/slices/profilePageSlice";
-import { setUserToken } from "../models/slices/profileSlice";
+import { setUserId, setUserImg, setUserName, setUserRole, setUserToken } from "../models/slices/profileSlice";
 import { setGroupTitle } from "../models/slices/tasksPageSlice";
 import { RootState } from "../models/store"
 import { hideSignInModal, hideSignUpModal, setSignInLoginValue, setSignInPasswordValue, setSignUpLoginValue, setSignUpPasswordValue, setSignUpValidPassValue } from "./modalsController";
@@ -71,9 +71,21 @@ const signUp = () => async (dispatch: any, getState: any) => {
   // window.location.href = "/"
 }
 
+const signOut = () => (dispatch: any) => {
+  localStorage.removeItem("token");
+  dispatch(setUserId(""));
+  dispatch(setUserImg(""));
+  dispatch(setUserName(""));
+  dispatch(setUserRole(""));
+  dispatch(setUserToken(""));
+
+  // window.location.href = "/"
+}
+
 export {
   signIn,
   signUp,
+  signOut,
 }
 
 /*
@@ -112,7 +124,7 @@ const applyProfileSettings = () => async (dispatch: any, getState: any) => {
   const state: RootState = getState();
   const user = state.profile.currentUser;
   const profilePageState = state.profilePage.pageData;
-  let img: Blob | string = "";
+  let img: Blob | string = user.img;
 
   // Loading image
   if (profilePageState.img !== user.img) {
@@ -122,11 +134,15 @@ const applyProfileSettings = () => async (dispatch: any, getState: any) => {
   const formData = new FormData();
   formData.append("name", profilePageState.username);
   formData.append("password", profilePageState.password ?? false);
-  formData.append("group1", "1");
-  formData.append("group2", "2");
-  formData.append("group3", "3");
-  formData.append("group4", "4");
-  formData.append("img", img, "img");
+  formData.append("group1", profilePageState.groupAliases[0]);
+  formData.append("group2", profilePageState.groupAliases[1]);
+  formData.append("group3", profilePageState.groupAliases[2]);
+  formData.append("group4", profilePageState.groupAliases[3]);
+  if (typeof img === 'string') {
+    formData.append("img", img);
+  } else {
+    formData.append("img", img, "img");
+  }
 
   // Sending request to the server
   const response = await axios.put(
@@ -138,11 +154,14 @@ const applyProfileSettings = () => async (dispatch: any, getState: any) => {
         "content-type": "multipart/form-data"
       }
     }
-  )
+  );
+
 
   // Applying profile setting to Front-end
-  // localStorage.setItem("token", response.data.token);
-  // dispatch(setUserToken(response.data.token));
+  const token = response.data.token;
+
+  localStorage.setItem("token", token);
+  dispatch(setUserToken(token));
 }
 
 export {

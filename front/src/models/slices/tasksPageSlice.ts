@@ -4,37 +4,31 @@ const taskPageSlice = createSlice({
   name: 'taskPage',
   initialState: {
     currentProject: {
-      id: '0',
-      title: '404'
+      id: '',
+      title: ''
     },
     groups: [
       {
         id: '0',
-        title: 'Right now',
+        title: 'group 1',
         isShowed: false,
-        tasks: [
-          {
-            id: '0',
-            title: 'Do awesome stuff',
-            status: 3
-          }
-        ]
+        tasks: []
       },
       {
         id: '1',
-        title: 'Whatever',
+        title: 'group 2',
         isShowed: false,
         tasks: []
       },
       {
         id: '2',
-        title: 'Something else',
+        title: 'group 3',
         isShowed: false,
         tasks: []
       },
       {
         id: '3',
-        title: 'New',
+        title: 'group 4',
         isShowed: false,
         tasks: []
       },
@@ -48,7 +42,11 @@ const taskPageSlice = createSlice({
     setCurrentProject: (state, action) => {
       state.currentProject.id = action.payload.id;
       state.currentProject.title = action.payload.title
-      state.groups = [];
+
+      for (let i = 0; i < state.groups.length; i++) {
+        const group = state.groups[i];
+        group.tasks = [];
+      }
     },
     addGroup: (state, action) => {
       state.groups.push(action.payload);
@@ -58,16 +56,17 @@ const taskPageSlice = createSlice({
     },
     addTask: (state, action) => {
       const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
-      group.tasks.push(action.payload.taskData);
+      const tasks = group.tasks as any[]
+      tasks.push(action.payload["taskData"]);
     },
     removeTask: (state, action) => {
       const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
-      group.tasks = group.tasks.filter((task) => task.id !== action.payload.taskId);
+      group.tasks = group.tasks.filter((task) => task["id"] !== action.payload.taskId);
     },
     setTaskStatus: (state, action) => {
       const group = state.groups.filter((group) => group.id === action.payload.groupId)[0];
-      const task = group.tasks.filter((item) => item.id === action.payload.taskId)[0];
-      task.status = action.payload.status;
+      const task = group.tasks.filter((item) => item["id"] === action.payload.taskId)[0];
+      (task["status"] as any) = action.payload.status;
     },
     toggleShowed: (state, action) => {
       const group = state.groups.filter((group) => group.id === action.payload)[0];

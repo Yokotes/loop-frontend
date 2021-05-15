@@ -30,7 +30,7 @@ taskRouter.post(
     const isCreated = await createNewTask(taskDto);
 
     if (isCreated) {
-      res.send({ task: taskDto });
+      res.send({ task: isCreated });
       return;
     }
 
@@ -47,6 +47,7 @@ taskRouter.get(
 
     const rawTasks = await Task.find({ userId: user["_id"], projectId }).exec();
     const tasks = rawTasks.map((task) => ({
+      _id: task._id,
       title: task["title"],
       status: task["status"],
       group: task["group"],
@@ -72,14 +73,12 @@ taskRouter.put(
       { _id: req.params["id"], userId: body["userId"] },
       {
         $set: {
-          title: body["title"],
           status: body["status"],
         }
       }
     );
 
     res.send({
-      title: body["title"],
       status: body["status"]
     });
   }
@@ -109,7 +108,7 @@ const createNewTask = async (taskDto: TaskDto) => {
   const task = new Task(taskDto);
   const createdTask = await task.save();
 
-  if (createdTask) return true;
+  if (createdTask) return createdTask;
 
   return false;
 }

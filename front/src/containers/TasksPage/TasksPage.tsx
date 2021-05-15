@@ -37,7 +37,7 @@ const TasksPage = () => {
           }
         </div>
       </div>
-    : <div>Select project</div>
+    : <div className={styles.note}>Select project</div>
   )
 }
 
