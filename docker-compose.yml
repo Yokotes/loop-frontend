@@ -1,0 +1,17 @@
+services:
+  front:
+    build: ./nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: "./front/build"
+        target: "/www/public"
+  back:
+    build: ./back/
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: "./front/build/img"
+        target: "/www/backend/img"

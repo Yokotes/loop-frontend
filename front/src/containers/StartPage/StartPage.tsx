@@ -11,7 +11,7 @@ const StartPage = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <h1 className={styles.welcome}>
-          Welcome to the LOOP CRM
+          Welcome to the LOOP Task Manager
         </h1>
         <p className={styles.msg}>
           You don't have an account yet?

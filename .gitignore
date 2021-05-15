@@ -12,7 +12,7 @@ node_modules
 secret.js
 
 # production
-/build
+build
 back/dist
 
 # misc

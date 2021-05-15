@@ -11,7 +11,7 @@ import { loadImg } from "../utils/images";
 
 const userRouter = Router();
 const storage = multer.diskStorage({
-  destination: "../front/public/img/users/",
+  destination: "./img/users/",
   filename: function (req, file, cb) {
     const id = req.user["_id"];
     cb(null, id);

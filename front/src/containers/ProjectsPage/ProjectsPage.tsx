@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import Project from '../../components/Project/Project';
 import { loadProjects } from '../../controllers/projectsController';
 import { ProjectType } from '../../models/slices/projectsListSlice';
@@ -16,6 +17,10 @@ const ProjectsPage = () => {
       dispatch(loadProjects());
     }
   }, [dispatch, userId]);
+
+  if (userId === "") {
+    return <Redirect to="/start" />
+  }
 
   return (
     <div className={styles.container}>

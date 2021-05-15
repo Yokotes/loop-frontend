@@ -9,7 +9,7 @@ import { deleteImg, loadImg } from "../utils/images";
 
 const projectRouter = Router();
 const storagePost = multer.diskStorage({
-  destination: "../front/public/img/projects/",
+  destination: "./img/projects/",
   filename: function (req, file, cb) {
     cb(null, "temp_name");
   }
@@ -17,7 +17,7 @@ const storagePost = multer.diskStorage({
 const uploadPost = multer({ storage: storagePost });
 
 const storagePut = multer.diskStorage({
-  destination: "../front/public/img/projects/",
+  destination: "./img/projects/",
   filename: function (req, file, cb) {
     cb(null, req.params["id"]);
   }
