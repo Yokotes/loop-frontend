@@ -1,18 +1,16 @@
-# Loop CRM Frontend
+# Loop Task Manager
 
-Hi! I've made this project for my portfolio.
-Project is used to demonstrate my skills and isn't used commercially.
+Loop Task Manager is a React application for creating tasks.
+I've developed it for my portfolio.
 
-## What is Loop CRM?
+## What does Loop Task Manager provide?
 
-Loop CRM is a website of company that provide outsorce services.
-You can sign in as a client and as a manager
+Loop Task Manager (LTM) provide functions:
 
-That's it. For this time.
-I'll be updating README file as I developing this project
+- Create/Edit/Delete projects
+- Create/Edit/Delete tasks
+- Change groups aliases
+
+All tasks divided to 4 groups. You can change groups aliases if you would.
 
 Have a nice day!
-
-## About icons
-
-I don't own icons used in the project, except main logo. All icons are brought from FontAwesome.
